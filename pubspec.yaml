@@ -29,7 +29,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_map: ^0.13.0
+  #  latlng: ^1.0.0
+  latlong2: ^0.8.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -38,6 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  http: ^0.13.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -52,7 +55,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  assets:
+    - assets/images/title_image_0.png
+    - assets/images/title_image_1.png
+    - assets/images/title_image_2.png
+    - assets/images/title_image_3.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

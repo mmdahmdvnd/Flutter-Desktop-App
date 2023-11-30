@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'AllCollectionRequest.dart';
 
-void main() => runApp(MyApp());
+// void main() => runApp(const MyApp());
+void main() => runApp(
+  MaterialApp(
+    initialRoute: '/',
+    onGenerateRoute: (settings) {
+      switch (settings.name) {
+        case '/':
+          return MaterialPageRoute(builder: (context) => MyApp());
+        case '/all_collection_request':
+          return MaterialPageRoute(builder: (context) => AllCollectionRequest());
+        default:
+          return null;
+      }
+    },
+  ),
+);
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -24,7 +44,23 @@ class MyApp extends StatelessWidget {
               child: Container(
                 color: Colors.blue[50],
                 child: Center(
-                  child: Text('نقشه در اینجا قرار می‌گیرد'),
+                  child: FlutterMap(
+                    options: MapOptions(
+                      center: LatLng(51.5, -0.09),
+                      zoom: 13.0,
+                    ),
+                    layers: [
+                      TileLayerOptions(
+                        urlTemplate:
+                        "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}",
+                        additionalOptions: {
+                          'accessToken':
+                          'pk.eyJ1IjoibW1kYWhtZHZuZCIsImEiOiJjbGFwMzlkaXgweGUzM3JuMDhyczNweWdyIn0.B5EDELTbtX58N3rDzOuPhw',
+                          'id': 'mapbox.streets',
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -40,20 +76,43 @@ class MyApp extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: List.generate(4, (index) {
-                      return Icon(
-                        Icons.star,
-                        size: 50.0,
-                        color: Colors.orange,
+                      return Expanded(
+                        child: InkWell(
+                          // onTap: () {
+                          //   if (index == 0) {
+                          //     // اگر کلیک بر روی اولین تصویر از ردیف اول باشد
+                          //     Navigator.of(context).push(
+                          //       MaterialPageRoute(
+                          //         builder: (context) => AllCollectionRequest(),
+                          //       ),
+                          //     );
+                          //   }
+                          // },
+                          onTap: () {
+                            if (index == 0) {
+                              Navigator.of(context).pushNamed('/all_collection_request');
+                            }
+                          },
+                          child: Image.asset(
+                            'assets/images/title_image_$index.png',
+                            width: double.infinity,
+                            height: targetHeight / 5,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       );
                     }),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: List.generate(4, (index) {
-                      return Icon(
-                        Icons.star,
-                        size: 50.0,
-                        color: Colors.orange,
+                      return Expanded(
+                        child: Image.asset(
+                          'assets/images/title_image_$index.png',
+                          width: double.infinity,
+                          height: targetHeight / 5,
+                          fit: BoxFit.cover,
+                        ),
                       );
                     }),
                   ),
@@ -66,3 +125,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
