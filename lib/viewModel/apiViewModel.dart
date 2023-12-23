@@ -1,11 +1,11 @@
-// api_view_model.dart
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import '../model/Request.dart';
 
-class ApiViewModel {
+class ApiViewModel extends ChangeNotifier {
   final String baseUrl;
 
   ApiViewModel({required this.baseUrl});
@@ -19,10 +19,8 @@ class ApiViewModel {
         List<Request> requestList = [];
 
         if (data is Iterable) {
-          // اگر داده‌ها از نوع Iterable هستند
           requestList = data.map((item) => Request.fromJson(item)).toList();
         } else if (data is Map<dynamic, dynamic>) {
-          // اگر داده‌ها از نوع Map هستند
           var request = Request.fromJson(data);
           requestList.add(request);
         }
@@ -36,7 +34,3 @@ class ApiViewModel {
     }
   }
 }
-
-final apiViewModelProvider = Provider<ApiViewModel>((ref) {
-  return ApiViewModel(baseUrl: 'https://android-material.ir/test/login_.php');
-});
