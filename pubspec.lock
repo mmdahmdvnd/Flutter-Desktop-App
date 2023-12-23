@@ -62,6 +62,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_hooks:
+    dependency: "direct main"
+    description:
+      name: flutter_hooks
+      sha256: "6a126f703b89499818d73305e4ce1e3de33b4ae1c5512e3b8eab4b986f46774c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.6"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -78,11 +86,27 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.1"
+  flutter_riverpod:
+    dependency: "direct main"
+    description:
+      name: flutter_riverpod
+      sha256: eee9148b4236b53a8b292be56ea5aca0bca4457609287df0c2d4b74152e4448d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  hooks_riverpod:
+    dependency: "direct main"
+    description:
+      name: hooks_riverpod
+      sha256: c5de133dc4aa80eb2b630cc6ac2540d81328cc2fc6dfe9c50b1dc8ee3e8d91ff
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3+1"
   http:
     dependency: "direct dev"
     description:
@@ -187,6 +211,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  riverpod:
+    dependency: "direct main"
+    description:
+      name: riverpod
+      sha256: "98f9ac5421833f6aa3c44bc6f2f586d72dc241e03b3da1618cde8124d83e4485"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3+1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -208,6 +240,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  state_notifier:
+    dependency: transitive
+    description:
+      name: state_notifier
+      sha256: "8fe42610f179b843b12371e40db58c9444f8757f8b69d181c97e50787caed289"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.2+1"
   stream_channel:
     dependency: transitive
     description:
@@ -298,4 +338,4 @@ packages:
     version: "2.0.0"
 sdks:
   dart: ">=3.1.0-185.0.dev <4.0.0"
-  flutter: ">=2.0.0"
+  flutter: ">=3.0.0"

@@ -2,7 +2,13 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+// import 'package:riverpod/riverpod.dart';
 import 'Request.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final apiServiceProvider = Provider<ApiService>((ref) {
+  return ApiService(baseUrl: 'https://android-material.ir/test/login_.php');
+});
 
 class ApiService {
   final String baseUrl;

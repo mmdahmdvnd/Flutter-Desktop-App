@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+// import 'package:riverpod/riverpod.dart';
 import 'AllCollectionRequest.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // void main() => runApp(const MyApp());
 void main() => runApp(
-  MaterialApp(
-    initialRoute: '/',
-    onGenerateRoute: (settings) {
-      switch (settings.name) {
-        case '/':
-          return MaterialPageRoute(builder: (context) => MyApp());
-        case '/all_collection_request':
-          return MaterialPageRoute(builder: (context) => AllCollectionRequest());
-        default:
-          return null;
-      }
-    },
-  ),
+  ProviderScope(
+      child: MaterialApp(
+        initialRoute: '/',
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/':
+              return MaterialPageRoute(builder: (context) => MyApp());
+            case '/all_collection_request':
+              return MaterialPageRoute(builder: (context) => AllCollectionRequest());
+            default:
+              return null;
+          }
+        },
+      ),
+  )
 );
+
+final targetHeightProvider = Provider<double>((_) => 0.55);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

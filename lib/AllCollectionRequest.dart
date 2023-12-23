@@ -1,73 +1,56 @@
 import 'package:flutter/material.dart';
+// import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ApiService .dart';
 import 'Request.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class AllCollectionRequest extends StatefulWidget {
-  const AllCollectionRequest({super.key});
+final apiServiceProvider = Provider<ApiService>((ref) {
+  return ApiService(baseUrl: 'https://android-material.ir/test/login_.php');
+});
+final requestsProvider = FutureProvider<List<Request>>((ref) async {
+  final apiService = ref.read(apiServiceProvider);
+  return apiService.getRequests();
+});
 
-  @override
-  _AllCollectionRequestState createState() => _AllCollectionRequestState();
-}
-
-class _AllCollectionRequestState extends State<AllCollectionRequest> {
-  late ApiService _apiService;
-  late Future<List<Request>> _requests;
-
-  @override
-  void initState() {
-    super.initState();
-    _apiService = ApiService(baseUrl: 'https://android-material.ir/test/login_.php');
-    _loadRequests();
-  }
-
-  Future<void> _loadRequests() async {
-    try {
-      _requests = _apiService.getRequests();
-    } catch (e) {
-      print('Error loading requests: $e');
-    }
-  }
+class AllCollectionRequest extends ConsumerWidget {
+  const AllCollectionRequest({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final requestsAsync = ref.watch(requestsProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('لیست درخواست‌ها'),
       ),
-      body: FutureBuilder<List<Request>>(
-        future: _requests,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No requests available.'));
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                Request request = snapshot.data![index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 4,
-                    child: ListTile(
-                      title: Text(
-                        request.status,
-                        style: TextStyle(fontSize: 28), // تغییر اندازه فونت
-                      ),
-                      subtitle: Text(
-                        request.message,
-                        style: TextStyle(fontSize: 24), // تغییر اندازه فونت
-                      ),
+      body: requestsAsync.when(
+        data: (requests) {
+          return ListView.builder(
+            itemCount: requests.length,
+            itemBuilder: (context, index) {
+              Request request = requests[index];
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  elevation: 4,
+                  child: ListTile(
+                    title: Text(
+                      request.status,
+                      style: TextStyle(fontSize: 28),
+                    ),
+                    subtitle: Text(
+                      request.message,
+                      style: TextStyle(fontSize: 24),
                     ),
                   ),
-                );
-              },
-            );
-          }
+                ),
+              );
+            },
+          );
         },
+        loading: () => Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(child: Text('Error: $error')),
       ),
     );
   }
