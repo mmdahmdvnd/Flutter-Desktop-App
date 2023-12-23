@@ -1,19 +1,14 @@
-// api_service.dart
-
+// api_view_model.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-// import 'package:riverpod/riverpod.dart';
-import 'Request.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final apiServiceProvider = Provider<ApiService>((ref) {
-  return ApiService(baseUrl: 'https://android-material.ir/test/login_.php');
-});
+import '../model/Request.dart';
 
-class ApiService {
+class ApiViewModel {
   final String baseUrl;
 
-  ApiService({required this.baseUrl});
+  ApiViewModel({required this.baseUrl});
 
   Future<List<Request>> getRequests() async {
     final response = await http.get(Uri.parse('$baseUrl/requests'));
@@ -41,3 +36,7 @@ class ApiService {
     }
   }
 }
+
+final apiViewModelProvider = Provider<ApiViewModel>((ref) {
+  return ApiViewModel(baseUrl: 'https://android-material.ir/test/login_.php');
+});

@@ -85,16 +85,6 @@ class MyApp extends StatelessWidget {
                     children: List.generate(4, (index) {
                       return Expanded(
                         child: InkWell(
-                          // onTap: () {
-                          //   if (index == 0) {
-                          //     // اگر کلیک بر روی اولین تصویر از ردیف اول باشد
-                          //     Navigator.of(context).push(
-                          //       MaterialPageRoute(
-                          //         builder: (context) => AllCollectionRequest(),
-                          //       ),
-                          //     );
-                          //   }
-                          // },
                           onTap: () {
                             if (index == 0) {
                               Navigator.of(context).pushNamed('/all_collection_request');

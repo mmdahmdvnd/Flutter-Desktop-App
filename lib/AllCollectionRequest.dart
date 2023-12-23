@@ -1,16 +1,12 @@
+// all_collection_request_view.dart
 import 'package:flutter/material.dart';
-// import 'package:riverpod/riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'ApiService .dart';
-import 'Request.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'viewModel/apiViewModel.dart';
+import 'model/Request.dart';
 
-final apiServiceProvider = Provider<ApiService>((ref) {
-  return ApiService(baseUrl: 'https://android-material.ir/test/login_.php');
-});
 final requestsProvider = FutureProvider<List<Request>>((ref) async {
-  final apiService = ref.read(apiServiceProvider);
-  return apiService.getRequests();
+  final apiViewModel = ref.read(apiViewModelProvider);
+  return apiViewModel.getRequests();
 });
 
 class AllCollectionRequest extends ConsumerWidget {
